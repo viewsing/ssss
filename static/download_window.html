@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            width: 500px;
+            margin: auto;
+            margin-top: 200px;
+        }
+    </style>
+</head>
+<body>
+<h2>BOM 和 html 方式下载</h2>
+<p>
+    <button id="hrefBtn">通过window.location.href</button>
+</p>
+<p>
+    <button id="openBtn">通过window.open</button>
+</p>
+<p>
+    <button id="hrefBtn2">用window.location.href，当文件不存在时</button>
+</p>
+
+<script>
+    document.getElementById('hrefBtn').onclick = function() {
+      window.location.href = './test.rar'
+    }
+    document.getElementById('openBtn').onclick = function() {
+      window.open('./test.rar')
+    }
+    document.getElementById('hrefBtn2').onclick = function() {
+      window.location.href = './test2.rar'
+    }
+</script>
+</body>
+</html>

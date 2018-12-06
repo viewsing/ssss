@@ -18,6 +18,3 @@ INSERT INTO `resource`(`ID`, `RTYPE`, `RNAME`, `HAS_CHILDREN`, `PARENT_ID`, `ROR
 
 //报读季度
 INSERT INTO `resource`(`ID`, `RTYPE`, `RNAME`, `HAS_CHILDREN`, `PARENT_ID`, `RORDER`, `RURL`, `RTAG`, `RCONTENT`, `STATE_TYPE`, `TITLE`, `create_time`, `create_user`, `new_url`) VALUES ('enrollQuarter', 'MENU', '报读季度设置', 0, 'SignUpOnline', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '/EnrollQuarter');
-
-
-代码规范、CSS、上传下载、Router

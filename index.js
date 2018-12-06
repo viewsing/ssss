@@ -46,21 +46,23 @@ app.post('/upload_formData', upload.single('upload'), function (req, res) {
 //下载文件
 app.get('/file/:fileName', function(req, res, next) {
   // 实现文件下载
-  var fileName = req.params.fileName;
-  var filePath = path.join(__dirname, './static', fileName);
-  var stats = fs.statSync(filePath);
+  var fileName = req.params.fileName
+  var filePath = path.join(__dirname, './static', fileName)
+  var stats = fs.statSync(filePath)
   if(stats.isFile()){
+    console.log(fileName)
     res.set({
-      // 'Content-Type': 'application/pdf',
-      'Content-Type': 'application/octet-stream',
+      'Content-Type': 'application/pdf',
+      // 'Content-Type': 'application/octet-stream',
+      'Content-Disposition': 'inline; filename='+fileName,
       // 'Content-Disposition': 'attachment; filename='+fileName,
       'Content-Length': stats.size
     });
-    fs.createReadStream(filePath).pipe(res);
+    fs.createReadStream(filePath).pipe(res)
   } else {
-    res.end(404);
+    res.end(404)
   }
-});
+})
 
 
 app.listen(PORT)

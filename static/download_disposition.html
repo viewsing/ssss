@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            width: 500px;
+            margin: auto;
+            margin-top: 200px;
+        }
+    </style>
+</head>
+<body>
+<h2>响应头下载</h2>
+<p>
+    <a href="./file/test.pdf">a标签 href 设置为test.pdf</a>
+</p>
+<p>
+    <a href="./file/test.pdf" download>a标签 href 设置为test.pdf，同时设置 download</a>
+</p>
+<p>
+    <button id="btn">xhr2 + disposition</button>
+</p>
+<script>
+    const btn = document.getElementById('btn')
+    btn.onclick = function() {
+      const xhr = new XMLHttpRequest()
+      xhr.open('GET',  './file/test.pdf')
+      xhr.responseType = 'blob'
+      xhr.onload = () => {
+        const link = document.createElement('a')
+        const body = document.body
+
+        link.href = window.URL.createObjectURL(xhr.response)
+        link.download = 'test.pdf'
+        link.style.display = 'none'
+        body.appendChild(link)
+        link.click()
+
+        window.URL.revokeObjectURL(link.href)
+        body.removeChild(link)
+      }
+      xhr.onerror = () => {
+        alet('导出失败')
+      }
+      xhr.send()
+    }
+</script>
+</body>
+</html>
