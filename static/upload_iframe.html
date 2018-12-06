@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            width: 500px;
+            margin: auto;
+            margin-top: 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>form上传</h2>
+    <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data" >
+
+        <input type="file" id="upload" name="upload" />
+
+        <br />
+        <br />
+        <br />
+
+        <input type="submit" value="Upload" />
+
+    </form>
+    <script src="./jquery-2.0.2.min.js"></script>
+    <script>
+          var form = $("#upload-form");
+
+          //绑定提交事件
+          form.on('submit',function() {
+
+                // 动态插入iframe元素
+                var seed = Math.floor(Math.random() * 1000);
+
+                var id = "uploader-frame-" + seed;
+
+                var callback = "uploader-cb-" + seed;
+
+                var iframe = $('<iframe id="'+id+'" name="'+id+'" style="display:none;">');
+
+                var url = form.attr('action');
+
+                form.attr('target', id).append(iframe).attr('action', url + '?callback=' + callback);
+
+                //类似jsonp形式上传回调
+                window[callback] = function(data){
+
+                      alert(data)
+
+                      iframe.remove();
+
+                      form.removeAttr('target');
+
+                      form.attr('action', url);
+
+                      window[callback] = undefined;
+
+                };
+          });
+    </script>
+
+</body>
+</html>

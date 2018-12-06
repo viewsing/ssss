@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传预览</title>
+    <style>
+        body {
+            width: 500px;
+            margin: auto;
+            margin-top: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h2>上传预览</h2>
+    <input type="file" id="files" accept="image/jpeg,image/jpg,image/png">
+    <img id="preview">
+    <script>
+      var elem = document.getElementById('files'),
+        img = document.getElementById('preview');
+      elem.onchange = function () {
+        var files = elem.files,
+          reader = new FileReader();
+        if(files && files[0]){
+          reader.onload = function (ev) {
+            img.src = ev.target.result;
+          }
+          reader.readAsDataURL(files[0]);
+        }
+      }
+    </script>
+</body>
+</html>
