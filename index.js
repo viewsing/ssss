@@ -7,9 +7,10 @@ const multer = require('multer')
 const app = new Express()
 const PORT = 8777
 
+//配置静态服务器
 app.use( Express.static('static') )
 
-//上传配置
+//上传插件配置
 const upload = multer({
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
@@ -22,7 +23,7 @@ const upload = multer({
 })
 
 
-//jsonp形式上传文件
+//iframe形式上传文件
 app.post('/upload', upload.single('upload'), function (req, res) {
   const callback = req.query.callback
   const data = '"form上传成功"'
@@ -50,14 +51,8 @@ app.get('/file/:fileName', function(req, res, next) {
   var filePath = path.join(__dirname, './static', fileName)
   var stats = fs.statSync(filePath)
   if(stats.isFile()){
-    console.log(fileName)
-    res.set({
-      'Content-Type': 'application/pdf',
-      // 'Content-Type': 'application/octet-stream',
-      'Content-Disposition': 'inline; filename='+fileName,
-      // 'Content-Disposition': 'attachment; filename='+fileName,
-      'Content-Length': stats.size
-    });
+
+    //响应文件流
     fs.createReadStream(filePath).pipe(res)
   } else {
     res.end(404)
@@ -65,5 +60,10 @@ app.get('/file/:fileName', function(req, res, next) {
 })
 
 
+// res.set({
+//   // 'Content-Type': 'application/octet-stream',
+//   // 'Content-Disposition': 'inline; filename='+fileName,
+//   // 'Content-Disposition': 'attachment; filename='+fileName,
+// });
 app.listen(PORT)
 console.log('服务已启动，端口：' + PORT)

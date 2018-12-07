@@ -34,17 +34,19 @@
           //绑定提交事件
           form.on('submit',function() {
 
-                // 动态插入iframe元素
+                // 生成唯一码
                 var seed = Math.floor(Math.random() * 1000);
 
                 var id = "uploader-frame-" + seed;
 
                 var callback = "uploader-cb-" + seed;
 
+                //创建iframe
                 var iframe = $('<iframe id="'+id+'" name="'+id+'" style="display:none;">');
 
                 var url = form.attr('action');
 
+                //把form的 target 属性设置为生成的iframe，action带上回调参数
                 form.attr('target', id).append(iframe).attr('action', url + '?callback=' + callback);
 
                 //类似jsonp形式上传回调
@@ -61,6 +63,8 @@
                       window[callback] = undefined;
 
                 };
+
+                //自动执行action
           });
     </script>
 

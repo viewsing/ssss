@@ -27,20 +27,14 @@
         </p>
 
     </form>
-    <script src="./jquery-2.0.2.min.js"></script>
     <script>
 
-      var $submit = $("#submit");
+      var $submit = document.getElementById('submit')
 
-      //绑定提交事件
-        $submit.on('click',function() {
+      //绑定按钮点击事件
+        $submit.addEventListener('click',function() {
 
-            const formData = new FormData() //创建FormData对象
-            const files = $('#upload').prop('files')
-
-            $.each(files, (index, file) => {
-                formData.append('upload', file)
-            })
+            const formData = new FormData(document.getElementById('upload-form')) //创建FormData对象
 
             const xhr = new XMLHttpRequest()
             xhr.open('POST', '/upload_formData')
