@@ -28,12 +28,7 @@ app.post('/upload', upload.single('upload'), function (req, res) {
   const callback = req.query.callback
   const data = '"form上传成功"'
 
-  res.send(
-    '<script>window.top.window["'
-    + callback
-    + '"]('
-    + data
-    + ')</script>')
+  res.send(`<script>window.top.window['${callback}'](${data})</script>`)
 })
 
 
