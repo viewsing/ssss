@@ -33,7 +33,7 @@ app.post('/upload', upload.single('upload'), function (req, res) {
     + callback
     + '"]('
     + data
-    + ');</script>')
+    + ')</script>')
 })
 
 
